@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        				http://www.springframework.org/schema/beans/spring-beans-3.2.xsd    
+	        			http://www.springframework.org/schema/context    
+	        			http://www.springframework.org/schema/context/spring-context-3.2.xsd    
+        				http://www.springframework.org/schema/mvc    
+        				http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+
+    <!--1.开启spring mvc 注解-->
+    <!--作用：
+    1.相当于注册了DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter两个bean，
+    配置一些messageconverter。即解决了@Controller注解的使用前提配置
+    2.提供了一系列数据绑定，json,xml，日期格式转换-->
+    <mvc:annotation-driven/>
+
+
+    <!--spring mvc 默认访问首页-->
+    <mvc:view-controller path="/" view-name="/"/>
+
+
+    <!--2.针对servlet-mapping 映射路径“/”，需要做servlet静态资源默认配置 -->
+    <!--作用：
+    1.加入对静态资源的处理
+    2.允许使用“/”做整体映射
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!--3.配置jsp ViewResolver-->
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--4.配置包扫描路径-->
+    <context:component-scan base-package="com.aric.seckill.controller"/>
+
+    <!--$$$$$$$$$$  配置拦截器 begin $$$$$$$$$$$$-->
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <!--登录权限拦截器-->
+        <bean  class="com.aric.seckill.interceptor.AuthInterceptorAdapter"/>
+        <!--国际化拦截器-->
+         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+    </mvc:interceptors>
+    <!--$$$$$$$$$$  配置拦截器 end $$$$$$$$$$$$-->
+
+
+    <!--$$$$$$$$$$  json 转换配置 begin $$$$$$$$$$$$-->
+    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <!--属性设置为媒体类型-->
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter"/>
+                <!-- JSON转换器 -->
+            </list>
+        </property>
+    </bean>
+    <!--$$$$$$$$$$  json 转换配置 end $$$$$$$$$$$$-->
+
+
+    <!--$$$$$$$$$$  国际化配置 begin $$$$$$$$$$$$-->
+
+    <!--配置国际化配置
+    jsp页面配置 :
+            <a href="?locale=zh_CN" >中文</a>
+            <a href="?locale=en_US" >英文</a>
+    注： ######################
+    此处的 id 名称必须为“localeResolver” ，
+        ######################
+    否则会默认启用AcceptHeaderLocaleResolver 从而使用setLocale，
+    抛出异常"Cannot change HTTP accept header - use a different locale resolution strategy"，
+    源码如下：
+     public class AcceptHeaderLocaleResolver implements LocaleResolver {
+        public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+            throw new UnsupportedOperationException("Cannot change HTTP accept header - use a different locale resolution strategy");
+        }
+    }
+    -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <!--默认设置为中文-->
+        <property name="defaultLocale" value="zh_CN"></property>
+        <!--不设置以下参数，cookie默认有效时间是和session一致，所以重新登录时不会检测到浏览器的cookie,之前设置的国际化即失效-->
+        <property name="cookiePath" value="/"/>
+        <property name="cookieName" value="language"/>
+        <property name="cookieMaxAge" value="31536000"/>
+    </bean>
+    <!--配置国际化资源
+    注：
+    国际化资源文件命名规范 “message_zh_CN.properties”
+    配置此bean ,
+    可以在Java类中注入该对象:
+            使用该对象"messageSource.getMessage"方法来获取国际化信息
+    可以在jsp页面中引入spring标签：<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+            使用该对象：<spring:message code="system.hello" />
+    代码如下：（local 可以通过方法中的参数传递进来直接使用）
+    messageSource.getMessage("system.hello",null,locale)
+    -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <!--配置国际化资源文件所在路径（如本地为claaspath:i18n/message_zh_CN.properties）
+         value="i18n/message" 表示在i18n包下，以message为前缀（以“_”为分割符，zh_CN为国际化标志）
+        -->
+        <property name="basename" value="i18n/message"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!--如果没有找到资源信息，使用key作为变量-->
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+    <!--$$$$$$$$$$  国际化配置 end $$$$$$$$$$$$-->
+
+
+</beans>

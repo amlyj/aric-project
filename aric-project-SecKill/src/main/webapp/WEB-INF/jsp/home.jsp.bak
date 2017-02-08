@@ -1,0 +1,159 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2016/7/9
+  Time: 16:34
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@include file="../template/header.jsp" %>
+<html>
+<head>
+    <title>welcome login success!</title>
+
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+        setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--flexslider-->
+    <link rel="stylesheet" href="/static/lib/jquery/css/flexslider.css" type="text/css" media="screen"/>
+    <!--//flexslider-->
+    <%--轮播--%>
+    <script type="text/javascript" src="/static/lib/jquery/jquery.flexslider.js"></script>
+    <script>window.jQuery || document.write('<script src="/static/lib/jquery/jquery.min.js">\x3C/script>')</script>
+    <!--FlexSlider-->
+    <script defer src="/static/lib/jquery/jquery.flexslider.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+
+            $('.flexslider').flexslider({
+                //动画
+                animation: "slide",
+                //轮播速度
+                slideshowSpeed:1000 ,
+                //循环
+                animationLoop:true,
+                //鼠标悬浮 暂停
+                pauseOnHover: true,
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<!--header-->
+<div class="header">
+    <div class="container">
+        <div class="top-menu">
+            <ul>
+                <li><a href=/list/stock" data-hover="秒杀列表">秒杀列表 </a></li>
+                <li><a href="/list/secKillDetails" data-hover="秒杀结果列表">秒杀结果列表</a></li>
+                <li><a href="#"><img src="/static/lib/bootstrap/images/logo.png" alt=""></a></li>
+                <li><a href="#" data-hover="Blog">Blog </a></li>
+                <li><a href="#" data-hover="Contact">Contact </a></li>
+            </ul>
+            <h4 style="text-align: right;color: green"> welcome ${currentUser.username}</h4>
+        </div>
+        <!--script-->
+        <div class="banner">
+            <div class="slider">
+                <section class="slider">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <img src="/static/images/flexslider/1.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/2.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/3.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/4.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/5.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/6.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/7.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/static/images/flexslider/8.png" alt=""/>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--//header-->
+<!--contant-->
+
+<!--content-->
+<!--//content-->
+<!--footer-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="col-md-4 footer-grid">
+                <h4>Decoline</h4>
+
+                <p class="flan">443 Flanigan Oaks Drive<span>
+					Alexandria, MD 22304</span></p>
+
+                <p>Phone : <label>+1 234 567890</label></p>
+
+                <p>Mail: <a href="#">info@example.com</a></p>
+
+
+            </div>
+            <div class="col-md-5 footer-grid-top ">
+                <div class="enter">
+                    <form>
+                        <input type="text" value=" SUBSCRIBE" onFocus="this.value = '';"
+                               onBlur="if (this.value == '') {this.value = 'SUBSCRIBE';}">
+                        <input type="submit" value="">
+                    </form>
+                </div>
+                <p>Cannot change HTTP accept header - use a different locale resolution strategy.
+                    <span>org.springframework.web.servlet.i18n.CookieLocaleResolver</span></p>
+            </div>
+            <div class="col-md-3 footer-grid-bottom ">
+                <h4>Follow us:</h4>
+                <ul class="social">
+                    <li><a href="#"><i></i></a></li>
+                    <li><a href="#"><i class="facebook"></i></a></li>
+                    <li><a href="#"><i class="linkedin"></i> </a></li>
+                    <li><a href="#"><i class="dribbble"></i> </a></li>
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <p class="footer-class">Copyright &copy; 2016.Company name All rights  <a href="#" title="KING-ARIC">KING-ARIC</a>
+            - Collect from <a href="#" title="KING-ARIC">KING-ARIC</a></p>
+    </div>
+
+</div>
+<!--//footer-->
+
+</body>
+
+</html>

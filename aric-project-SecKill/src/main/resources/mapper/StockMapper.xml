@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aric.seckill.mapper.StockMapper">
+    <update id="reduceStock">
+        <!--使用<![CDATA[ <= ]]>转义"<=" -->
+        UPDATE
+        t_stock
+        SET
+        number = number -1
+        WHERE
+        stock_id =#{id}
+        AND
+        start_time <![CDATA[ <= ]]> #{reduceTime}
+        AND
+        end_time >= #{reduceTime}
+        AND
+        number >0
+    </update>
+
+    <select id="getStockById" resultType="Stock" parameterType="Integer">
+       SELECT
+        *
+       FROM
+         t_stock
+       WHERE
+       stock_id=#{id}
+
+    </select>
+
+    <select id="getStockList" resultType="Stock" >
+
+        SELECT
+        *
+        FROM
+        t_stock
+        ORDER  BY
+          create_time
+        DESC
+
+    </select>
+
+</mapper>
+
+
+
+
+

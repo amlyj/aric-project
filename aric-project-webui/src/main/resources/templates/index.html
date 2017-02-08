@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>welcome login success!</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--bootstarp-->
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+    <script src="/lib/jquery/js/jquery-1.8.2.min.js"></script>
+    <!--flexslider-->
+    <link rel="stylesheet" href="/lib/jquery/css/flexslider.css" type="text/css" media="screen"/>
+    <!--轮播-->
+    <script type="text/javascript" src="/lib/jquery/js/jquery.flexslider.js"></script>
+    <!--FlexSlider-->
+    <script src="/lib/jquery/js/jquery.flexslider.js"></script>
+    <script src="/js/index.js"></script>
+</head>
+<body>
+<!--header-->
+<div class="header">
+    <div class="container">
+        <div class="top-menu">
+            <ul>
+                <li><a href="#">aric </a></li>
+                <li><a href="#">tom</a></li>
+                <li><a href="#"><img src="/images/home/logo.png" alt=""/></a></li>
+                <li><a href="#">Blog </a></li>
+                <li><a href="#">Contact </a></li>
+            </ul>
+            <p style="color: red;font-size: large">welcome:
+            <a  th:href="@{/index}" style="color: red;font-size: large" th:text="${user}"></a></p>
+        </div>
+        <!--script-->
+        <div class="banner">
+            <div class="slider">
+                <section class="slider">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li>
+                                <img src="/images/flexslider/1.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/2.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/3.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/4.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/5.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/6.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/7.png" alt=""/>
+                            </li>
+                            <li>
+                                <img src="/images/flexslider/8.png" alt=""/>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--//header-->
+<!--footer-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="col-md-4 footer-grid">
+                <h4>Decoline</h4>
+
+                <p class="flan">443 Flanigan Oaks Drive<span>
+					Alexandria, MD 22304</span></p>
+
+                <p>Phone : <label>+1 234 567890</label></p>
+
+                <p>Mail: <a href="#">info@example.com</a></p>
+
+
+            </div>
+            <div class="col-md-5 footer-grid-top ">
+                <div class="enter">
+                    <form>
+                        <input type="text" value=" SUBSCRIBE" onFocus="this.value = '';"
+                               onBlur="if (this.value == '') {this.value = 'SUBSCRIBE';}"/>
+                        <input type="submit" value=""/>
+                    </form>
+                </div>
+                <p>Cannot change HTTP accept header - use a different locale resolution strategy.
+                    <span>org.springframework.web.servlet.i18n.CookieLocaleResolver</span></p>
+            </div>
+            <div class="col-md-3 footer-grid-bottom ">
+                <h4>Follow us:</h4>
+                <ul class="social">
+                    <li><a href="#"><i class="facebook"></i></a></li>
+                    <li><a href="#"><i class="linkedin"></i> </a></li>
+                    <li><a href="#"><i class="dribbble"></i> </a></li>
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <p class="footer-class">Copyright &copy; 2016.Company name All rights <a href="#"
+                                                                                 title="KING-ARIC">KING-ARIC</a>
+            - Collect from <a href="#" title="KING-ARIC">KING-ARIC</a></p>
+    </div>
+
+</div>
+<!--//footer-->
+
+</body>
+
+</html>

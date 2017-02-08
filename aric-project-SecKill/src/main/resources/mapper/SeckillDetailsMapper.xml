@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aric.seckill.mapper.SecKillDetailsMapper">
+    <resultMap id="BaseResultMap" type="com.aric.seckill.entity.SecKillDetails">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="stock_id" property="stockId" jdbcType="INTEGER"/>
+        <id column="account_id" property="accountId" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <!--使用 INSERT  ignore 避免主键冲突时抛出异常，这样会返回0-->
+    <insert id="saveSecKillDetails">
+     INSERT
+      ignore
+     INTO
+     t_seckill_details
+     VALUES
+     (#{secKillDetails.stockId},
+     #{secKillDetails.accountId},
+     #{secKillDetails.state},
+     #{secKillDetails.createTime})
+  </insert>
+
+    <!--b.stock_id AS "stock.stock_id", 将级联查询的数据所关联到的类中声明的的属性中
+    （a类有stock属性，则使用a.getStock()时，会返回该关联查询的对象）-->
+    <select id="getSecKillDetailsById" resultType="SecKillDetailsDto">
+        SELECT
+         a.stock_id,
+         a.account_id,
+         a.state,
+         a.create_time,
+         b.stock_id AS "stock.stock_id",
+         b.name AS "stock.name",
+         c.id as "account.id",
+         c.username as "account.username"
+
+         FROM
+         t_seckill_details a
+         INNER JOIN
+         t_stock b
+         ON
+          a.stock_id = b.stock_id
+         INNER  JOIN
+          t_account c
+         ON
+         a.account_id =c.id
+         WHERE
+          a.stock_id=#{socket}
+         AND
+          a.account_id=#{account}
+   </select>
+
+    <select id="getSecKillDetailsList" resultType="SecKillDetailsDto">
+          SELECT
+         a.stock_id,
+         a.account_id,
+         a.state,
+         a.create_time,
+         b.stock_id AS "stock.stock_id",
+         b.name AS "stock.name",
+         c.id as "account.id",
+         c.username as "account.username"
+
+         FROM
+         t_seckill_details a
+         INNER JOIN
+         t_stock b
+         ON
+          a.stock_id = b.stock_id
+         INNER  JOIN
+          t_account c
+         ON
+         a.account_id =c.id
+    </select>
+</mapper>

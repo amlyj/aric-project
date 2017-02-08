@@ -1,0 +1,10 @@
+/**
+ author:tom
+**/
+
+/**
+表头栏居中
+**/
+.table th{
+   text-align: center;
+}
