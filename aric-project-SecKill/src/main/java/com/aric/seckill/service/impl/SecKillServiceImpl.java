@@ -77,6 +77,13 @@ public class SecKillServiceImpl implements SecKillService {
 
     }
 
+    /**
+     * 先执行insert－再执行update,以减少行级锁持有时间．提高并发量．
+     * @param stockId
+     * @param accountId
+     * @param md5
+     * @return
+     */
     @Override
     public SecKillResultDto executeSecKill(Integer stockId, Integer accountId, String md5)
             throws SecKillException, RepeatSecKillException, StopSecKillException {
